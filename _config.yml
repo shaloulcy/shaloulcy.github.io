@@ -8,7 +8,7 @@
 # Site settings
 title: 李传云的博客
 email: lcy041536@gmail.com
-description: test
+description: 学习
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://shaloulcy.github.io" # the base hostname & protocol for your site
 twitter_username: licy
