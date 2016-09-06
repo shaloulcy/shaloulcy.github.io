@@ -12,6 +12,7 @@ categories: k8s,kubernetes
 kube-apiserver的watch机制是建立在etcd的watch机制之上的，etcd的watch是没有过滤功能的，而kube-apiserver增加了过滤功能。什么是过滤？比如kubelet只对调度到本节点上的pod感兴趣，也就是pod.host=node1，而kube-scheduler只对未被调度的pod感兴趣，也就是pod.host=""，etcd只能watch到pod的add、delete、update，kube-apiserver则增加了过滤功能，将订阅方感兴趣的部分资源发给订阅方。
 
 ## kube-apiserver对etcd的操控
+
 kube-apiserver针对每一类资源(pod、service、endpoint、replication controller、depolyments),都会与etcd建立一个连接。如：
 
 **pkg/registry/pod/etcd/etcd.go +61**
@@ -146,6 +147,7 @@ func NewEtcdStorage(client etcd.Client, codec runtime.Codec, prefix string, quor
 最后生成etcdHelper结构，etcdHelper实现了storage.Interface结构，kube-apiserver的所有操作最后都会通过这个结构体持久化到etcd中。
 
 ## opts.Decorator的背后
+
 从前面我们可以知道，最终会生成一个针对etcd的Storage，然后会使用一个装饰器函数去包装Storage，opts.Decorator(opts.Storage, cachesize.GetWatchCacheSizeByResource(cachesize.Pods), &api.Pod{}, prefix, pod.Strategy, newListFunc)。Decorator到底是什么函数呢，其代码位于
 
 **pkg/genericapiserver/genericapiserver.go +256**
@@ -867,4 +869,5 @@ func (s *WatchServer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 从上述两段代码可以看出，首先利用返回的watcher创建一个WatchServer,WatchServer开始运行，ch := s.watching.ResultChan(),ch就是前面说到的channel result，从result取出event，然后将其序列化，最后通过发送出去。这样就讲watch的结果发送给订阅方了
 
 ## 总结
+
 kube-apiserver的watch机制如下：kube-apiserver初始化时，建立对etcd的连接，并对etcd进行watch，将watch的结果存入watchCache。当其他组件需要watch资源时，其他组件向apiserver发送一个watch请求，这个请求是可以带filter函数的，apiserver针对这个请求会创建一个watcher，并基于watcher创建WatchServer，watchCache watch的对象，首先会通过filter函数的过滤，假如过滤通过的话，则会通过WatcherServer发送给订阅组件。
