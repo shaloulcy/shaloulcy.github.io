@@ -5,8 +5,6 @@ date:   2016-04-26 03:56:49 -0400
 categories: k8s,kubernetes
 ---
 
-#kube-apiserver的watch机制(Server端)
-
 本分析基于k8s v1.3.6版本
 
 什么是watch?kubelet、kube-controller-manager、kube-scheduler需要监控各种资源(pod、service等)的变化，当这些对象发生变化时(add、delete、update)，kube-apiserver能够主动通知这些组件。这个过程类似一个发布-订阅系统。
