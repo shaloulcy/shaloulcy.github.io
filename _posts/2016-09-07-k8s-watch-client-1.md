@@ -3,6 +3,9 @@ layout: post
 title:  "kube-apiserver的watch机制(Client端)(第1部分)"
 categories: k8s,kubernetes
 ---
+
+*本源码分析基于k8s v1.3.6*
+
 上一章中，我们介绍了kube-apiserver的watch机制server端，这一篇幅中我们将介绍watch机制的client端，它是如何发起watch，并接收watch到的对象。这里的客户端包括kubelet、kube-scheduler、kube-controller-manager以及kube-proxy。我们以kubelet为例
 
 ## kubelet对pod资源的watch

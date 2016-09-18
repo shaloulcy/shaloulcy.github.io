@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  "kube-apiserver的watch机制(Server端)"
-date:   2016-04-26 03:56:49 -0400
 categories: k8s,kubernetes
 ---
+
+*本源码分析基于k8s v1.3.6*
 
 本分析基于k8s v1.3.6版本
 
