@@ -50,6 +50,8 @@ func parent() {
 func child() {
 	must(syscall.Mount("rootfs", "rootfs", "", syscall.MS_BIND, ""))
 	must(os.MkdirAll("rootfs/oldrootfs", 0700))
+    must(os.MkdirAll("rootfs/proc", 0700))
+    must(syscall.Mount("proc", "rootfs/proc", "proc", syscall.MS_NODEV | syscall.MS_NOEXEC | syscall.MS_NOSUID, "" ))
 	must(syscall.PivotRoot("rootfs", "rootfs/oldrootfs"))
 	must(os.Chdir("/"))
 
