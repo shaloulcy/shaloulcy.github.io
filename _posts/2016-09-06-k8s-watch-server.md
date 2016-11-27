@@ -13,6 +13,8 @@ categories: k8s,kubernetes
 
 kube-apiserver的watch机制是建立在etcd的watch机制之上的，etcd的watch是没有过滤功能的，而kube-apiserver增加了过滤功能。什么是过滤？比如kubelet只对调度到本节点上的pod感兴趣，也就是pod.host=node1，而kube-scheduler只对未被调度的pod感兴趣，也就是pod.host=""，etcd只能watch到pod的add、delete、update，kube-apiserver则增加了过滤功能，将订阅方感兴趣的部分资源发给订阅方。
 
+<!-- more -->
+
 ## kube-apiserver对etcd的操控
 
 kube-apiserver针对每一类资源(pod、service、endpoint、replication controller、depolyments),都会与etcd建立一个连接。如：

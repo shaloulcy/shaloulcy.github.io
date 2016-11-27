@@ -22,6 +22,8 @@ rpm制作的过程其实是在一个镜像中完成的，docker源码中包含�
 docker build -t dockercore/builder-rpm:centos-7 contrib/builder/rpm/amd64/centos-7
 ```
 
+<!-- more -->
+
 这一步主要生成了dockercore/builder-rpm:centos-7镜像
 
 ## 3、生成manpages

@@ -21,6 +21,8 @@ type AlgorithmProviderConfig struct {
 ```
 **Algorithm**：一个接口，需要实现Schedule函数即可，负责具体的调度算法
 
+<!-- more -->
+
 ```go
 type ScheduleAlgorithm interface {
     Schedule(*api.Pod, NodeLister) (selectedMachine string, err error)

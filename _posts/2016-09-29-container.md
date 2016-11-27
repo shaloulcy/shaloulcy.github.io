@@ -12,6 +12,8 @@ categories: container、namespace、PivotRoot
 * 准备一个rootfs文件系统，里面包含正常的/bin、/var、/lib等目录，最简单的做法是直接利用docker镜像，解压，我们只用busybox这个镜像。将镜像的所有文件至于一个rootfs文件夹
 * 执行 ./container run command，command为用户自定义的指令
 
+<!-- more -->
+
 ```go
 package main
 

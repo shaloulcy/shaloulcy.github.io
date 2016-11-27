@@ -26,6 +26,8 @@ type layerStore struct {
 
 layStore主要包含四个主要的结构成员，store、driver、layerMap和mounts。
 
+<!-- more -->
+
 ### 1.1 store
 
 store的数据类型为MetadataStore，主要用来存储每个layer的元数据，存储的目录位于/var/lib/docker/image/{driver}/layerdb，这里的driver包括aufs、devicemapper、overlay和btrfs。
@@ -248,13 +250,4 @@ devicemapper下面有三个目录，devicemapper、metadata、mnt。devicemapper
 overlay下面直接以各个layer的cache-id存储各个layer的数据
 
 btrfs这个驱动没有使用过，因此不了解
-
-
-
-
-
-
-
-
-
 

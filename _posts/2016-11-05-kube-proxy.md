@@ -11,6 +11,8 @@ kube-proxy应该是k8s所有服务里面最简单的服务，它的功能很单�
 
 kube-proxy运行于每一个node节点，它的主要工作就是对service、endpoint进行watch，然后在每一个节点建立相关的iptables表项，这样我们就可以在任意一个node上访问service，同时，假如一个service包含多个endpoint，它还起着负载均衡的作用，流量将平均分配到一个endpoint。
 
+<!-- more -->
+
 ## 一、服务函数入口
 
 和其他服务一致，kube-proxy的主要位于kubernetes/cmd/kube-proxy。首先options.NewProxyConfig()创建一个配置文件，然后利用配置文件创建服务app.NewProxyServerDefault(config)，最后运行这个服务。

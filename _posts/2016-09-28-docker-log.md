@@ -26,6 +26,8 @@ type Logger interface {
 
 其中Log(*Message)函数，描述了具体如何记录日志。
 
+<!-- more -->
+
 我们以jsonfile这个log driver为例。首先是log driver的注册，这部分工作在docker daemon初始化前就完成了
 
 **docker/daemon/logger/jsonfilelog/jsonfilelog.go +32**

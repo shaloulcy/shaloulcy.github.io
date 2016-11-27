@@ -13,6 +13,8 @@ categories: k8s,kubernetes
 
 kubelet主要的工作就是创建、维护、销毁pod，因此他需要对pod进行watch，而且它watch想要watch的pod是那些已经分配到本节点的pods
 
+<!-- more -->
+
 **./cmd/kubelet/app/server.go +891**
 
 ```go

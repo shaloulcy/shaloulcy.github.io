@@ -14,6 +14,8 @@ replication controller是kube-controller-manager里面一个重要的控制器�
 
 **cmd/kube-controller-manager/app/controllermanager.go +198**
 
+<!-- more -->
+
 ```go
 func StartControllers(s *options.CMServer, kubeClient *client.Client, kubeconfig *restclient.Config, stop <-chan struct{}) error {
     podInformer := informers.CreateSharedPodIndexInformer(clientset.NewForConfigOrDie(restclient.AddUserAgent(kubeconfig, "pod-informer")), ResyncPeriod(s)())
