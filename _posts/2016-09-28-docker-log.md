@@ -1,5 +1,6 @@
 ---
 layout: post
+author: shalou
 title: "docker容器日志" 
 categories: docker, log
 ---

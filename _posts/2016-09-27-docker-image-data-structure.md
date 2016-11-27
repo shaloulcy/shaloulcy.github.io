@@ -1,5 +1,6 @@
 ---
 layout: post
+author: shalou
 title: "Docker镜像存储相关数据结构" 
 categories: docker, image
 ---

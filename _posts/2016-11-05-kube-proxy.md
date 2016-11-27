@@ -1,5 +1,6 @@
 ---
 layout: post 
+author: shalou
 title:  "kube-proxy源码解析"
 categories: k8s, kubelet
 ---

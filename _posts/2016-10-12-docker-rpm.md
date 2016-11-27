@@ -1,5 +1,6 @@
 ---
 layout: post
+author: shalou
 title:  "docker rpm包制作"
 categories: docker,rpm
 ---

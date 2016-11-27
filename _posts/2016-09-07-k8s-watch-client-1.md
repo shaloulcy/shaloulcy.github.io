@@ -1,5 +1,6 @@
 ---
 layout: post
+author: shalou
 title:  "kube-apiserver的watch机制(Client端)(第1部分)"
 categories: k8s,kubernetes
 ---

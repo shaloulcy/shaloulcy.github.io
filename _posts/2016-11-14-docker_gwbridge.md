@@ -1,5 +1,6 @@
 ---
 layout: post 
+author: shalou
 title:  "自定义docker_gwbridge网段"
 categories: docker,swarm mode,docker_gwbridge
 ---

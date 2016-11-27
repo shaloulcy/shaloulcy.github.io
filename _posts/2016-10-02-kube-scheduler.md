@@ -1,5 +1,6 @@
 ---
 layout: post
+author: shalou
 title:  "kube-scheduler剖析"
 categories: k8s,kubernetes,kube-scheduler
 ---
