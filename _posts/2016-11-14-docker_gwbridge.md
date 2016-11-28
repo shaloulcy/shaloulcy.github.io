@@ -3,7 +3,7 @@ layout: post
 author: shalou
 title:  "自定义docker_gwbridge网段"
 category: 容器技术
-tag: docker,docker_gwbridge
+tag: [docker,docker_gwbridge]
 ---
 
 

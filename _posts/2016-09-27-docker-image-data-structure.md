@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title: "Docker镜像存储相关数据结构" 
-categories: docker, image
+category: 容器技术
+tag: [docker, image]
 ---
 
 *本分析基于docker v1.12.1*

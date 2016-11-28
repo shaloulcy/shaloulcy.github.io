@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title:  "kube-scheduler剖析"
-categories: k8s,kubernetes,kube-scheduler
+category: 容器技术
+tag: [k8s,kubernetes,kube-scheduler]
 ---
 
 # 

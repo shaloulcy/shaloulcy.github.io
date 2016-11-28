@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title:  "如何用100行go代码构建容器"
-categories: container、namespace、PivotRoot
+category：容器技术
+tag: [container, namespace, PivotRoot]
 ---
 
 

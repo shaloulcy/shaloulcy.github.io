@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title:  "kube-apiserver的watch机制(Server端)"
-categories: k8s,kubernetes
+category: 容器技术
+tag: [k8s, kubernetes, watch]
 ---
 
 *本源码分析基于k8s v1.3.6*

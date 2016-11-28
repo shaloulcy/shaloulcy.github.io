@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title:  "docker rpm包制作"
-categories: docker,rpm
+category: 容器技术
+tag: [docker, rpm]
 ---
 
 由于国内网络的原因，直接使用docker官方的教程制作docker的rpm包往往会失败，或需要很长的时间。本文将docker中制作rpm的核心思路抽取出来，以docker 1.12.1为例，总结如下.

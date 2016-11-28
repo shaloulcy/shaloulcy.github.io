@@ -2,7 +2,8 @@
 layout: post 
 author: shalou
 title:  "kube-proxy源码解析"
-categories: k8s, kubelet
+category: 容器技术
+tag: [k8s, kubelet]
 ---
 
 *本代码分析基于k8s v1.3.6*

@@ -2,7 +2,8 @@
 layout: post
 author: shalou
 title: "docker容器日志" 
-categories: docker, log
+category: 容器技术
+tag: [docker, log]
 ---
 
 *本分析基于docker v1.12.1*
