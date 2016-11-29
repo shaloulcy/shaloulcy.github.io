@@ -823,6 +823,11 @@ h1.page-data-year {
   font-size: 1.5rem;
   border-top: 1px solid #eee;
 }
+h2.page-data-month {
+  /*position: fixed;*/
+  font-size: 1.2rem;
+  border-top: 1px solid #eee;
+}
 li.page-data-md {
   margin-left: 1.5rem;
   font-size: .7rem;
