@@ -21,7 +21,6 @@ kube-proxy运行于每一个node节点，它的主要工作就是对service、en
 **kubernetes/cmd/kube-proxy/proxy.go +38**
 
 ```go
-
 func main() {
 	config := options.NewProxyConfig()
 	config.AddFlags(pflag.CommandLine)
@@ -139,14 +138,14 @@ func watchForUpdates(bcaster *config.Broadcaster, accessor config.Accessor, upda
 
 **kubernetes/cmd/kube-proxy/app/server.go +249**
 
-```
+```go
 	endpointsConfig := proxyconfig.NewEndpointsConfig()
 	endpointsConfig.RegisterHandler(endpointsHandler)
 ```
 
 **kubernetes/pkg/proxy/config/config.go +84**
 
-```
+```go
 func NewEndpointsConfig() *EndpointsConfig {
 	updates := make(chan struct{}, 1)
 	store := &endpointsStore{updates: updates, endpoints: make(map[string]map[types.NamespacedName]api.Endpoints)}
@@ -170,7 +169,7 @@ service、endpoint肯定来源于apiserver，kube-proxy如何获取呢？获取�
 
 **kubernetes/cmd/kube-proxy/app/server.go +252**
 
-```
+```go
 	proxyconfig.NewSourceAPI(
 		client,
 		config.ConfigSyncPeriod,
@@ -183,7 +182,7 @@ service、endpoint肯定来源于apiserver，kube-proxy如何获取呢？获取�
 
 **kubernetes/pkg/proxy/config/config.go +243**
 
-```
+```go
 func (c *ServiceConfig) Channel(source string) chan ServiceUpdate {
 	ch := c.mux.Channel(source)
 	serviceCh := make(chan ServiceUpdate)
@@ -201,7 +200,7 @@ func (c *ServiceConfig) Channel(source string) chan ServiceUpdate {
 
 **kubernetes/pkg/proxy/config/api.go +28**
 
-```
+```go
 func NewSourceAPI(c cache.Getter, period time.Duration, servicesChan chan<- ServiceUpdate, endpointsChan chan<- EndpointsUpdate) {
 	servicesLW := cache.NewListWatchFromClient(c, "services", api.NamespaceAll, fields.Everything())
 	cache.NewReflector(servicesLW, &api.Service{}, NewServiceStore(nil, servicesChan), period).Run()
@@ -251,7 +250,7 @@ Mux框架代码的位于[kubernetes/pkg/util/config/config.go](kubernetes/pkg/ut
 
 **kubernetes/pkg/proxy/config/config.go +235**
 
-```
+```go
 func (s *serviceStore) Merge(source string, change interface{}) error {
 	s.serviceLock.Lock()
 	services := s.services[source]
@@ -303,7 +302,7 @@ func (s *serviceStore) Merge(source string, change interface{}) error {
 
 以OnServiceUpdate函数为例
 
-```
+```go
 func (proxier *Proxier) OnServiceUpdate(allServices []api.Service) {
 	start := time.Now()
 	defer func() {
@@ -390,7 +389,7 @@ func (proxier *Proxier) OnServiceUpdate(allServices []api.Service) {
 
 **kubernetes/cmd/kube-proxy/app/server.go +272**
 
-```
+```go
 func (s *ProxyServer) Run() error {
 	// remove iptables rules and exit
 	if s.Config.CleanupAndExit {
@@ -453,7 +452,7 @@ func (s *ProxyServer) Run() error {
 
 **kubernetes/pkg/proxy/iptables/proxier.go +385**
 
-```
+```go
 func (proxier *Proxier) SyncLoop() {
 	t := time.NewTicker(proxier.syncPeriod)
 	defer t.Stop()

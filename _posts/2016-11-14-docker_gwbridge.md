@@ -15,7 +15,7 @@ tag: [docker,docker_gwbridge]
 
 假如你执行了docker swarm init. docker_gwbridge会取一个默认的网段(172.18.0.0)，这时又该如何删除了？
 
-```
+```shell
 docker swarm leave --force (让节点离开swarm mode)
 
 docker network disconnect docker_gwbridge gateway_ingress-sbox -f (需要加-f，否则会说找不到这个容器)
