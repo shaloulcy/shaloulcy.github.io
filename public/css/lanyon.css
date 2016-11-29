@@ -826,7 +826,7 @@ h1.page-data-year {
 }
 h2.page-data-month {
   /*position: fixed;*/
-  font-size: 1rem;
+  font-size: .7rem;
   border-top: 1px solid #eee;
 }
 li.page-data-md {
