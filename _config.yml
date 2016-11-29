@@ -1,6 +1,7 @@
 # Dependencies
 #markdown:         rdiscount
-markdown:         kramdown
+#markdown:         kramdown
+markdown:         redcarpet
 highlighter:      pygments
 #highlighter:      rouge
 
