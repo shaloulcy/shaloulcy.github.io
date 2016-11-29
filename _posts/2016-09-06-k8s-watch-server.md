@@ -186,7 +186,7 @@ func StorageWithCacher(
 
 **pkg/storage/cacher.go +147**
 
-```
+```go
 func NewCacherFromConfig(config CacherConfig) *Cacher {
     watchCache := newWatchCache(config.CacheCapacity)
     listerWatcher := newCacherListerWatcher(config.Storage, config.ResourcePrefix, .NewListFunc)
