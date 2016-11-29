@@ -11,13 +11,14 @@ title: 归档
 
   {% if forloop.first %}
     <h1 class="page-data-year">{{ post.date | date: '%Y' }}</h1>
-    <h1 class="page-data-year">{{ post.date | date: '%B' }}</h1>
+    <h2 class="page-data-year">{{ post.date | date: '%B' }}</h2>
   {% else %}
     {% if year != nyear %}
       <h1 class="page-data-year">{{ post.date | date: '%Y' }}</h1>
+      <h2 class="page-data-year">{{ post.date | date: '%B' }}</h2>
     {% else %}
       {% if month != nmonth %}
-        <h1 class="page-data-year">{{ post.date | date: '%B' }}</h1>  
+        <h2 class="page-data-year">{{ post.date | date: '%B' }}</h2>  
       {% endif %}
     {% endif %}
   {% endif %}
