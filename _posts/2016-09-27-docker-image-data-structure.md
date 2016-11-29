@@ -12,7 +12,7 @@ tag: [docker, image]
 
 docker daemon在初始化过程中，会初始化一个layerStore，那么layerStore是什么呢？从名字可以看出，是用来存储layer的，docker镜像时分层的，一层称为一个layer。在之前的docker源码中，docker的镜像是由一个叫graph的数据结构进行管理的，现在换成了layerStore
 
-```
+```go
 type layerStore struct {
 	store  MetadataStore
 	driver graphdriver.Driver
@@ -76,7 +76,7 @@ sha256下面则存放了每一层只读的Layer的原信息。之所以会有sha
 
 layerMap本质上是一个map，map的类型为map[ChainID]*roLayer，即map的键为ChainID（字母串），值为roLayer。前面说store本质上是磁盘上保存了各个layer的元数据信息，当docker初始化时，它会利用这些元数据文件在内存中构造各个layer，每个Layer都用一个roLayer结构体表示，即只读(ro)的layer
 
-```
+```go
 type roLayer struct {
 	chainID    ChainID
 	diffID     DiffID
@@ -104,7 +104,7 @@ roLayer还有parent数据成员、referenceCount和references成员，referentce
 
 mounts本质上是一个map，类型为map[string]*mountedLayer。前面提到过mounts存放的其实是每个容器可写的layer的信息，他们的元数据存放在/var/lib/docker/image/{driver}/layerdb/mounts目录下。而mountedLayer则是这些可写的layer在内存中的结构
 
-```
+```go
 type mountedLayer struct {
 	name       string
 	mountID    string
@@ -124,7 +124,7 @@ mountedLayer没有chain-id、diff-id、cached-id，只有mountID和initID，其�
 
 imageStore存放的是各个docker image的信息。imageStore的类型为image.Store，结构体为
 
-```
+```go
 type store struct {
 	sync.Mutex
 	ls        LayerGetReleaser
@@ -136,7 +136,7 @@ type store struct {
 
 ls类型为LayerGetReleaser接口，初始化时将ls初始化为layerStore。fs类型为StoreBackend。
 
-```
+```go
 ifs, err := image.NewFSStoreBackend(filepath.Join(imageRoot, "imagedb"))
 d.imageStore, err = image.NewImageStore(ifs, d.layerStore)
 ```
@@ -149,7 +149,7 @@ fs存放了image的原信息，存储的目录位于/var/lib/docker/image/{drive
 
 imageStore包含了images成员，类型为map[ID]*imageMeta，images就是每一个镜像的信息，看看imageMeta结构体
 
-```
+```go
 type imageMeta struct {
 	layer    layer.Layer
 	children map[ID]struct{}
@@ -184,7 +184,7 @@ referfenceStore的类型为reference.store，这个应该是docker用户最熟�
 
 referfenceStore其实就是从这个文件反序列化而来的
 
-```
+```go
 type store struct {
 	mu sync.RWMutex
 	jsonPath string
@@ -208,7 +208,7 @@ docker pull ubuntu@sha256:bd00486535fd3ab00463b0572d94a62715cb790e482d5419c9179c
 
 这个结构体没去详细了解过，它在我们下载镜像时会用到。数据存储在/var/lib/docker/image/{driver}/distribution
 
-```
+```go
 type FSMetadataStore struct {
 	sync.RWMutex
 	basePath string
@@ -219,7 +219,7 @@ type FSMetadataStore struct {
 
 目前docker支持四种storage driver，aufs、devicemapper、overlay和btrfs。所有的driver必须支持以下接口
 
-```
+```go
 type Driver interface {
 	ProtoDriver
 	Diff(id, parent string) (archive.Archive, error)

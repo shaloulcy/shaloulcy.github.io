@@ -19,7 +19,7 @@ git checkout v1.12.1
 
 rpm制作的过程其实是在一个镜像中完成的，docker源码中包含了这个镜像的Dockerfile文件，位于目录contrib/builder/rpm/amd64/下面，包括centos、fedora、opensuse、oraclelinux等，我们以centos-7为例
 
-```
+```go
 docker build -t dockercore/builder-rpm:centos-7 contrib/builder/rpm/amd64/centos-7
 ```
 
@@ -30,7 +30,7 @@ docker build -t dockercore/builder-rpm:centos-7 contrib/builder/rpm/amd64/centos
 ## 3、生成manpages
 这一步主要生成docker的帮助文档
 
-```
+```go
 make manpages
 ```
 
@@ -40,7 +40,7 @@ make manpages
 
 按照官方给的教程，这一步其实是由脚本完成的，本文的主要工作就是讲这部分东西抽出来，手动创建Dockerfile.build，其内容如下
 
-```
+```go
 FROM dockercore/builder-rpm:centos-7
 
 COPY . /usr/src/docker-engine
@@ -98,14 +98,14 @@ RUN rpmbuild -ba \
 将这个文档放在bundles/1.12.1/build-rpm目录下，先创建该目录。然后执行
 
 
-```
+```go
 docker build -t docker-temp/build-rpm:centos-7 -f bundles/1.12.1/build-rpm/Dockerfile.build .
 ```
 
 当这一步完成以后，其实rpm包已经生成在镜像里面了，通过以下方法拷贝出来
 
 
-```
+```go
 docker run --rm docker-temp/build-rpm:centos-7 bash -c 'cd /root/rpmbuild && tar -c *RPMS' | tar -xvC /root/rpm
 ```
 
@@ -114,7 +114,7 @@ docker run --rm docker-temp/build-rpm:centos-7 bash -c 'cd /root/rpmbuild && tar
 ## 5、制作yum源
 生成的rpm包最好不要直接安装，因为他依赖其他的软件包，最好通过yum安装，又yum解决软件依赖。本文简单介绍一下制作yum源的步骤
 
-```
+```go
 yum install httpd createrepo
 systemectl enable httpd
 mkdir /var/www/html/updocker  //将生成的rpm包拷贝到该目录下
@@ -125,7 +125,7 @@ createrepo updocker
 
 /etc/yum.repos.d/updocker.repo内容如下
 
-```
+```go
 [updocker]
 name=updocker
 baseurl=http://ip/updocker  //ip为yum源所在主机IP
@@ -133,7 +133,7 @@ gpgcheck=0
 enabled=1
 ```
 
-```
+```go
 yum makecache
 yum install docker-engine
 ```

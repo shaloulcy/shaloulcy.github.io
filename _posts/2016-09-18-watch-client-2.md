@@ -295,7 +295,7 @@ func (f *DeltaFIFO) queueActionLocked(actionType DeltaType, obj interface{}) err
 
 **pkg/controller/framework/controller.go +121**
 
-```
+```go
 func (c *Controller) processLoop() {
     for {
         obj, err := c.config.Queue.Pop(cache.PopProcessFunc(c.config.Process))
@@ -432,7 +432,7 @@ func (rm *ReplicationManager) enqueueController(obj interface{}) {
 
 **pkg/controller/replication/replication_controller.go**
 
-```
+```go
 func (rm *ReplicationManager) worker() {
     workFunc := func() bool { 
         key, quit := rm.queue.Get()
@@ -676,7 +676,7 @@ listenser的add函数负责将notify装进pendingNotifications，而pop函数取
 
 **pkg/controller/replication/replication_controller.go +324**
 
-```
+```go
 func (rm *ReplicationManager) addPod(obj interface{}) {
     pod := obj.(*api.Pod)
 

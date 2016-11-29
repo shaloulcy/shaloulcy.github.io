@@ -32,7 +32,7 @@ type ScheduleAlgorithm interface {
 
 **genericScheduler**：genericScheduler是一个具体的Algorithm，它实现了Schedule()函数。
 
-```
+```go
 type genericScheduler struct {
     cache             schedulercache.Cache
     predicates        map[string]algorithm.FitPredicate
@@ -124,7 +124,7 @@ func Run(s *options.SchedulerServer) error {
 ```
 **plugin/pkg/scheduler/factory/factory.go  +98**                                                                                                           
 
-```
+```go
 func NewConfigFactory(client *client.Client, schedulerName string, hardPodAffinitySymmetricWeight int, failureDomains string) *ConfigFactory {
     stopEverything := make(chan struct{})
     schedulerCache := schedulercache.New(30*time.Second, stopEverything)
@@ -248,7 +248,7 @@ func init() {
 
 无论是从policyfile，还是从algorithmprovider创建scheduler，最后都会调用一个函数NewGenericScheduler。这个函数构建了一个真正的调度器。
 
-```
+```go
 func NewGenericScheduler(cache schedulercache.Cache, predicates map[string]algorithm.FitPredicate, prioritizers []algorithm.PriorityConfig, extenders []algorithm.SchedulerExtender) algorithm.ScheduleAlgorithm {
     return &genericScheduler{
         cache:       cache, 

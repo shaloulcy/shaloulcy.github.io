@@ -239,8 +239,7 @@ func (c *RESTClient) Get() *Request {
 
 **pkg/client/restclient/request.go +233**
 
-```
-+233
+```go
 func (r *Request) Namespace(namespace string) *Request {
     ...
     r.namespaceSet = true
@@ -371,7 +370,7 @@ loop:
 
 **pkg/client/cache/undelta_store.go**
 
-```
+```go
 func (u *UndeltaStore) Add(obj interface{}) error {
     if err := u.Store.Add(obj); err != nil {
         return err

@@ -17,7 +17,7 @@ tag: [docker, log]
 
 这部分代码位于docker/daemon/logger目录下，每一种驱动都在该目录下面有一个子目录，它们必须实现Logger接口
 
-```
+```go
 type Logger interface {
 	Log(*Message) error
 	Name() string
@@ -33,7 +33,7 @@ type Logger interface {
 
 **docker/daemon/logger/jsonfilelog/jsonfilelog.go +32**
 
-```
+```go
 func init() {
 	if err := logger.RegisterLogDriver(Name, New); err != nil {
 		logrus.Fatal(err)
@@ -60,7 +60,7 @@ RegisterLogDriver将log driver注册到一个map里面，Name是driver的名字�
 
 **docker/libcontainerd/client_linux.go +136**
 
-```
+```go
 func (clnt *client) Create(containerID string, checkpoint string, checkpointDir string, spec Spec, options ...CreateOption) (err error) {
     ...
 	container := clnt.newContainer(filepath.Join(dir, containerID), options...)
@@ -71,7 +71,7 @@ func (clnt *client) Create(containerID string, checkpoint string, checkpointDir 
 
 首先创建了一个container对象，但这时候container对象还没有发送给containerd。接着调用container.start函数
 
-```
+```go
 func (ctr *container) start(checkpoint string, checkpointDir string) error {
 	...
 	iopipe, err := ctr.openFifos(spec.Process.Terminal)
@@ -107,7 +107,7 @@ func (ctr *container) start(checkpoint string, checkpointDir string) error {
 
 **docker/daemon/monitor.go +122**
 
-```
+```go
 func (daemon *Daemon) AttachStreams(id string, iop libcontainerd.IOPipe) error {
 	var (
 		s  *runconfig.StreamConfig
@@ -149,7 +149,7 @@ StartLogging是问题的关键
 
 **docker/daemon/logs.go +125**
 
-```
+```go
 func (daemon *Daemon) StartLogging(container *container.Container) error {
 	if container.HostConfig.LogConfig.Type == "none" {
 		return nil // do not start logging routines
@@ -172,7 +172,7 @@ container.StartLogger(container.HostConfig.LogConfig)函数传入了一个LogCon
 
 **docker/daemon/logger/copier.go +34**
 
-```
+```go
 func (c *Copier) Run() {
 	for src, w := range c.srcs {
 		c.copyJobs.Add(1)
@@ -216,7 +216,7 @@ src的日志从哪里来呢？logger.NewCopier(map[string]io.Reader{"stdout": co
 回到前面的函数AttachStreams
 
 
-```
+```go
 func (daemon *Daemon) AttachStreams(id string, iop libcontainerd.IOPipe) error {
 	var (
 		s  *runconfig.StreamConfig
@@ -258,7 +258,7 @@ func (daemon *Daemon) AttachStreams(id string, iop libcontainerd.IOPipe) error {
 
 继续回溯到start函数
 
-```
+```go
 func (ctr *container) start(checkpoint string, checkpointDir string) error {
 	...
 	iopipe, err := ctr.openFifos(spec.Process.Terminal)
@@ -294,7 +294,7 @@ iop就是iopipe。管道？ctr.openFifos(spec.Process.Terminal)这个函数创�
 
 **docker/libcontainerd/process_linux.go +29**
 
-```
+```go
 func (p *process) openFifos(terminal bool) (*IOPipe, error) {
 	bundleDir := p.dir
 	if err := os.MkdirAll(bundleDir, 0700); err != nil {
@@ -339,7 +339,7 @@ runC如何写入日志，我们在这里就不具体展开了。其实runC写入
 
 前面提到到docker daemon会构建一个CreateContainerRequest，然后传递给containerd。如下所示，Request里面包含了Stdio、Stdout、Stderr，这三个字符串就是三个管道文件的全路径。
 
-```
+```go
 r := &containerd.CreateContainerRequest{
 		Id:            ctr.containerID,
 		BundlePath:    ctr.dir,
