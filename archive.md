@@ -5,12 +5,12 @@ title: 归档
 
 {% for post in site.posts %}
 {% unless post.next %}
-<h1 class="page-data-year">{{ post.date | date: '%Y' }}</h1>
+<h1 class="page-data-year">{{ post.date | date: '%Y-%m' }}</h1>
 {% else %}
-{% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-{% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-{% if year != nyear %}
-<h1 class="page-data-year">{{ post.date | date: '%Y' }}</h1>
+{% capture month %}{{ post.date | date: '%Y-%m' }}{% endcapture %}
+{% capture nmonth %}{{ post.next.date | date: '%Y-%m' }}{% endcapture %}
+{% if month != nmonth %}
+<h1 class="page-data-year">{{ post.date | date: '%Y-%m' }}</h1>
 {% endif %}
 {% endunless %}
 
