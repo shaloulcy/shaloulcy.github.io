@@ -13,6 +13,8 @@ HorizontalPodAutoscaler是k8s提供的自动扩展机制，他可以根据Pod的
 
 首先创建一个deployments
 
+<!-- more -->
+
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -79,7 +81,7 @@ type ScaleSpec struct {
 
 **pkg/registry/extensions/controller/etcd/etcd.go +73**
 
-```
+```go
 func (r *ScaleREST) Update(ctx api.Context, name string, objInfo rest.UpdatedObjectInfo) (runtime.Object, bool, error) {
     rc, err := (*r.registry).GetController(ctx, name)
     if err != nil {
@@ -115,7 +117,7 @@ func (r *ScaleREST) Update(ctx api.Context, name string, objInfo rest.UpdatedObj
 
 为了支持自动扩展，k8s还在autoscaling这个APIGROUP引入了HorizontalPodAutoscaler这个对象
 
-```
+```go
 type HorizontalPodAutoscaler struct {
     unversioned.TypeMeta
 
@@ -286,7 +288,7 @@ func (a *HorizontalController) Run(stopCh <-chan struct{}) {
 
 **pkg/controller/podautoscaler/horizontal.go +75**
 
-```
+```go
 func newInformer(controller *HorizontalController, resyncPeriod time.Duration) (cache.Store, *cache.Controller) {
     return cache.NewInformer(
         &cache.ListWatch{
@@ -437,7 +439,7 @@ func (a *HorizontalController) reconcileAutoscaler(hpa *autoscaling.HorizontalPo
 
 **pkg/controller/podautoscaler/horizontal.go +147**
 
-```
+```go
 func (a *HorizontalController) computeReplicasForCPUUtilization(hpa *autoscaling.HorizontalPodAutoscaler, scale *extensions.Scale) (int32, *int32, time.Time, error) {
     //默认的CPU阈值为80%
     targetUtilization := int32(defaultTargetCPUUtilizationPercentage)
