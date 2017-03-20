@@ -1,7 +1,7 @@
 ---
 layout: post 
 author: shalou
-title:  "自定义docker\_gwbridge网段"
+title:  "docker网络自定义"
 category: 容器技术
 tag: [docker,docker\_gwbridge]
 ---
@@ -23,9 +23,20 @@ docker network disconnect docker_gwbridge gateway_ingress-sbox -f //需要加-f�
 
 docker network  rm docker_gwbridge
 
-docker network create --subnet 192.168.2.0/24 --opt com.docker.network.bridge.name=docker_gwbridge --opt com.docker.network.bridge.enable_icc=false --opt com.docker.network.bridge.enable_ip_masquerade=true docker_gwbridge
+docker network create --subnet 192.168.2.0/24 --opt com.docker.network.bridge.name=docker_gwbridge --opt com.docker.network.bridge.enable_icc=false --opt com.docker.network.bridge.enable_ip_masquerade=true --opt com.docker.network.driver.mtu=1450 docker_gwbridge
 
 docker swarm init
 ```
+
+bridge网络支持以下自定义参数
+
+
+|Option|Equivalent|Description|
+|:-:|:-:|:-:|
+|com.docker.network.bridge.name|-|bridge name to be used when creating the Linux bridge|
+|com.docker.network.bridge.enable\_ip\_masquerade|--ip-masq|Enable IP masquerading|
+|com.docker.network.bridge.enable_icc|--icc|Enable or Disable Inter Container Connectivity|
+|com.docker.network.bridge.host\_binding\_ipv4|--ip|Default IP when binding container ports|
+|com.docker.network.driver.mtu|--mtu|Set the containers network MTU|
 
 
