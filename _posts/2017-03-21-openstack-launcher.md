@@ -1,7 +1,7 @@
 ---
 layout: post 
 author: shalou
-title:  "Openstack中的Launcher" 
+title:  "OpenStack中的Launcher" 
 category: openstack
 tag: [openstack, launcher]
 ---
