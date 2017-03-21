@@ -14,6 +14,8 @@ OpenStack里面的Service主要分为两类，第一类是普通的Service，第
 
 我们首先看看nova-conductor的启动文件
 
+<!-- more -->
+
 **nova/cmd/conductor.py +34**
 
 ```python
