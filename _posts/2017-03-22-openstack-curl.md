@@ -8,7 +8,9 @@ tag: [openstack, curl]
 
 任何一次访问都需要经过先经过认证，因此我们首先需要向Keystone组件进行认证，获取Token
 
-```sh
+<!-- more -->
+
+```python
 curl -i -g -X POST -H "Content-Type: application/json" http://openstack:35357/v3/auth/tokens '{
     "auth": {
         "identity": {
@@ -50,7 +52,7 @@ Date: Tue, 21 Mar 2017 23:29:32 GMT
 
 接下来我们查看该用户有哪些虚拟机
 
-```sh
+```python
 curl -i -g -X GET -H "Content-Type: application/json" -H "X-Auth-Token: dabdd91adf56440eb5a1e9a305c74bc3" http://openstack:8774/v2/c08977f8313543688b666ce844b7c71a/servers
 
 返回值如下，有一台test虚拟机
@@ -65,7 +67,7 @@ Date: Tue, 21 Mar 2017 23:39:25 GMT
 
 创建一台虚拟机
 
-```sh
+```python
 curl -i -g -X POST -H "Content-Type: application/json" -H "X-Auth-Token: dabdd91adf56440eb5a1e9a305c74bc3" http://openstack:8774/v2/c08977f8313543688b666ce844b7c71a/servers -d '{
     "server": {
         "name": "demo",
