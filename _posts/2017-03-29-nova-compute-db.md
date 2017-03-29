@@ -12,6 +12,8 @@ nova-compute其实是通过rpc请求nova-conductor，由nova-conductor去更新�
 
 /etc/nova/nova.conf有一个配置，配置如何访问数据库，当use_local为false的时候通过发送rpc请求到nova-conductor，当use_local为true时，直接更新数据库，默认情况下为false
 
+<!-- more -->
+
 ```
 [conductor]
 use_local=false
