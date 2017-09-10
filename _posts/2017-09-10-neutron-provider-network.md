@@ -34,7 +34,7 @@ neutron subnet-create --name public-subnet --gateway 10.211.55.254  --enable-dhc
 上述命令将创建一个网络属于10.211.55.0/24网络，IP将从10.211.55.100到10.211.55.200。其物理架构如
 
 
-![flat-provider-network.jpg](./flat-provider-network.jpg)
+![flat-provider-network.jpg](/images/neutron-provider-network/flat-provider-network.jpg)
 
 其实架构图和tenant network中的vlan模式很像，几乎一模一样，主要有一下区别
 
@@ -76,6 +76,6 @@ neutron subnet-create --name public-subnet --gateway 192.168.1.1  --enable-dhcp 
 
 其架构图
 
-![vlan-provider-network.jpg](./vlan-provider-network.jpg)
+![vlan-provider-network.jpg](/images/neutron-provider-network/vlan-provider-network.jpg)
 
 vlan provider network相对于flat provider network的优势就是，vlan只需要一张网卡，就可以接入多个物理网络，因为它接的交换机口是trunk模式，数据包是由br-eth0流表打上vlan tag再转发到交换机的。相应的vlan provider network需要对交换机做一些额外配置
