@@ -18,7 +18,7 @@ PodPreset只对Pod产生作用，通过selector选择特定的Pod添加PodPreset
 
 ## 1. 创建一个Pod
 
-```
+```golang
 apiVersion: v1
 kind: Pod
 metadata:
@@ -38,7 +38,7 @@ Pod的label为app:websit和role:frontend
 
 ## 2. 创建PodPreset
 
-```
+```golang
 apiVersion: settings.k8s.io/v1alpha1
 kind: PodPreset
 metadata:
@@ -63,7 +63,7 @@ spec:
 
 ## 3. 查看Pod
 
-```
+```golang
 apiVersion: v1
 kind: Pod
 metadata:
