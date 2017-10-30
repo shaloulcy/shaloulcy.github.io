@@ -1,6 +1,6 @@
 ---
 layout: post 
-author: other
+author: shalou
 title:  "golang反射的应用" 
 category: golang
 tag: [golang, reflect]
